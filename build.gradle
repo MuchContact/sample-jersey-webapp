@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+group = 'SampleJerseyApp'
+version = '1.0'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+
+repositories {
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile files("libs/syntong-security1.1.jar")
+    compile('commons-io:commons-io:2.1')
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2-b02'
+    compile(group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.10') {
+        exclude(module: 'javax.annotation-api')
+    }
+    compile group: 'org.glassfish.jersey.ext', name: 'jersey-mvc', version: '2.3.1'
+    compile group: 'com.stormpath.sdk', name: 'stormpath-sdk-api', version: '1.0.RC2'
+    compile group: 'com.stormpath.sdk', name: 'stormpath-sdk-oauth', version: '1.0.RC2'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson1', version: '2.11'
+    compile(group: 'com.sun.jersey', name: 'jersey-json', version: '1.18.1') {
+        exclude(module: 'jackson-mapper-asl')
+        exclude(module: 'javax.annotation-api')
+        exclude(module: 'jackson-core-asl')
+    }
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+    runtime(group: 'com.stormpath.sdk', name: 'stormpath-sdk-httpclient', version: '1.0.RC2') {
+        exclude(module: 'jackson-mapper-asl')
+    }
+}
